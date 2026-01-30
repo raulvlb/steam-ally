@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
+import i18n from '@/i18n';
 
 /**
  * Steam API Client
@@ -16,6 +17,16 @@ const REQUEST_TIMEOUT = 10000;
 // Retry configuration
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000;
+
+// Map i18n language codes to Steam language codes
+const STEAM_LANGUAGE_MAP: Record<string, string> = {
+  'en': 'english',
+  'pt-BR': 'brazilian',
+  'es': 'spanish',
+  'fr': 'french',
+  'de': 'german',
+  'it': 'italian'
+};
 
 class SteamApiClient {
   private client: AxiosInstance;
@@ -170,7 +181,9 @@ class SteamApiClient {
    * Get game details from Steam Store API
    */
   async getGameDetails(appId: number) {
-    return this.get(`${API_BASE_URL}?endpoint=GetAppDetails&appids=${appId}&l=english`);
+    const currentLang = i18n.language || 'en';
+    const steamLang = STEAM_LANGUAGE_MAP[currentLang] || 'english';
+    return this.get(`${API_BASE_URL}?endpoint=GetAppDetails&appids=${appId}&l=${steamLang}`);
   }
 
   /**
