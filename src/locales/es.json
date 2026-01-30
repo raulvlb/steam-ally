@@ -1,0 +1,173 @@
+{
+  "site": {
+    "name": "Steam Ally",
+    "description": "Tu compañero Steam para logros y guías"
+  },
+  "nav": {
+    "home": "Inicio",
+    "games": "Juegos",
+    "guides": "Guías",
+    "profile": "Perfil",
+    "login": "Iniciar sesión con Steam",
+    "logout": "Cerrar sesión",
+    "theme": {
+      "light": "Tema claro",
+      "dark": "Tema oscuro"
+    }
+  },
+  "home": {
+    "title": "Steam Ally",
+    "subtitle": "Tu compañero Steam para logros y guías",
+    "description": "Rastrea tu progreso, crea guías platino y explora tu biblioteca Steam",
+    "searchPlaceholder": "Buscar juegos en Steam...",
+    "loginRequired": "Inicia sesión con Steam para acceder a todas las funciones",
+    "form": {
+      "title": "Encuentra Tu Perfil de Steam",
+      "description": "Escribe tu ID de Steam",
+      "label": "Identificador Steam",
+      "placeholder": "Ejemplo: 76561198012345678",
+      "exampleNote": "Ejemplo: 76561198012345678",
+      "profileFound": "¡Perfil encontrado! Haz clic en \"Acceder al Perfil\" para continuar.",
+      "profileNotFound": "Perfil de Steam no encontrado. Verifica tu entrada o prueba con un identificador diferente.",
+      "loadingProfile": "Cargando Perfil...",
+      "accessProfile": "Acceder al Perfil",
+      "help": {
+        "title": "¿Cómo encontrar tu ID de Steam?",
+        "step1": "Abre Steam (aplicación de escritorio o sitio web)",
+        "step2": "Haz clic en tu nombre de usuario arriba → Ver mi perfil",
+        "step3": "Haz clic en Editar Perfil",
+        "step4": "En el menú izquierdo, haz clic en Configuración de Privacidad",
+        "step5": "En Mi Perfil, selecciona Público",
+        "step6": "(Opcional) También establece: Detalles del Juego → Público",
+        "step7": "(Opcional) También establece: Lista de Amigos → Público",
+        "step8": "Haz clic en Guardar",
+        "step9": "Ve a ver Mi perfil nuevamente y obtén tu ID de Steam de la URL"
+      }
+    },
+    "features": {
+      "title": "Características",
+      "achievements": {
+        "title": "Seguimiento de Logros",
+        "description": "Monitorea tu progreso y desbloquea todos los logros"
+      },
+      "guides": {
+        "title": "Guías Platino",
+        "description": "Crea y comparte guías detalladas para obtener todos los logros"
+      },
+      "library": {
+        "title": "Biblioteca de Juegos",
+        "description": "Navega y explora toda tu colección Steam"
+      }
+    }
+  },
+  "games": {
+    "title": "Mis Juegos",
+    "loading": "Cargando juegos...",
+    "empty": "No se encontraron juegos en tu biblioteca",
+    "playTime": "{{hours}}h jugadas",
+    "noPlayTime": "No jugado",
+    "achievements": "{{count}} logros",
+    "searchPlaceholder": "Buscar juegos..."
+  },
+  "achievements": {
+    "title": "Logros",
+    "loading": "Cargando logros...",
+    "progress": "Progreso",
+    "unlocked": "{{count}} desbloqueados",
+    "total": "{{count}} total",
+    "percentage": "{{percent}}% completado",
+    "locked": "Bloqueado",
+    "unlocked_achievement": "Desbloqueado",
+    "unlockDate": "Desbloqueado el {{date}}",
+    "hidden": "Logro oculto",
+    "hiddenDescription": "Este logro está oculto hasta ser desbloqueado",
+    "backToGames": "Volver a Juegos",
+    "createGuide": "Crear Guía Platino"
+  },
+  "guides": {
+    "library": "Biblioteca de Guías",
+    "myGuides": "Mis Guías",
+    "curatedGuides": "Guías Curadas",
+    "createNew": "Crear Nueva Guía",
+    "loading": "Cargando guías...",
+    "empty": "No hay guías disponibles aún",
+    "emptyOwn": "Aún no has creado ninguna guía",
+    "entries": "{{count}} anotaciones",
+    "entry": "{{count}} anotación",
+    "preview": "Vista previa",
+    "import": "Importar",
+    "export": "Exportar Guía",
+    "exportSuccess": "¡Guía exportada con éxito!",
+    "importSuccess": "¡Guía importada con éxito!",
+    "importError": "Error al importar guía. Verifica el formato del archivo.",
+    "selectGame": "Selecciona un juego para crear una guía",
+    "searchGame": "Buscar cualquier juego en Steam...",
+    "searchMinChars": "Escribe al menos 2 caracteres para buscar",
+    "searching": "Buscando...",
+    "noResults": "No se encontraron juegos",
+    "backToLibrary": "Volver a Biblioteca",
+    "backToEdit": "Volver a Editar"
+  },
+  "guide": {
+    "title": "Guía Platino",
+    "editor": {
+      "title": "Editar Guía",
+      "newGuide": "Nueva Guía",
+      "addEntry": "Añadir Anotación",
+      "entryType": "Tipo de Anotación",
+      "achievement": "Logro",
+      "note": "Nota General",
+      "selectAchievement": "Selecciona un logro",
+      "noteTitle": "Título de la Nota",
+      "content": "Contenido",
+      "contentPlaceholder": "Escribe tu guía aquí...",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "saveSuccess": "¡Guía guardada con éxito!",
+      "deleteConfirm": "¿Estás seguro de que deseas eliminar esta anotación?",
+      "backToAchievements": "Volver a Logros",
+      "viewGuide": "Ver Guía",
+      "loading": "Cargando...",
+      "markdownSupport": "Soporta formato Markdown"
+    },
+    "view": {
+      "edit": "Editar Guía",
+      "collapse": "Contraer",
+      "expand": "Expandir"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "level": "Nivel {{level}}",
+    "memberSince": "Miembro desde {{date}}",
+    "loading": "Cargando perfil...",
+    "stats": {
+      "games": "Juegos",
+      "achievements": "Logros",
+      "perfectGames": "Juegos Perfectos"
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "tryAgain": "Intentar de nuevo",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "back": "Volver",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "page": "Página {{current}} de {{total}}"
+  }
+}

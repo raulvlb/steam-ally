@@ -1,0 +1,173 @@
+{
+  "site": {
+    "name": "Steam Ally",
+    "description": "Seu companheiro Steam para conquistas e guias"
+  },
+  "nav": {
+    "home": "Início",
+    "games": "Jogos",
+    "guides": "Guias",
+    "profile": "Perfil",
+    "login": "Entrar com Steam",
+    "logout": "Sair",
+    "theme": {
+      "light": "Tema claro",
+      "dark": "Tema escuro"
+    }
+  },
+  "home": {
+    "title": "Steam Ally",
+    "subtitle": "Seu companheiro Steam para conquistas e guias",
+    "description": "Acompanhe seu progresso, crie guias platina e explore sua biblioteca Steam",
+    "searchPlaceholder": "Buscar jogos na Steam...",
+    "loginRequired": "Entre com Steam para acessar todos os recursos",
+    "form": {
+      "title": "Encontre Seu Perfil Steam",
+      "description": "Digite seu ID Steam",
+      "label": "Identificador Steam",
+      "placeholder": "Exemplo: 76561198012345678",
+      "exampleNote": "Exemplo: 76561198012345678",
+      "profileFound": "Perfil encontrado! Clique em \"Acessar Perfil\" para continuar.",
+      "profileNotFound": "Perfil Steam não encontrado. Verifique sua entrada ou tente um identificador diferente.",
+      "loadingProfile": "Carregando Perfil...",
+      "accessProfile": "Acessar Perfil",
+      "help": {
+        "title": "Como encontrar seu ID Steam?",
+        "step1": "Abra o Steam (aplicativo desktop ou website)",
+        "step2": "Clique no seu nome de usuário no topo → Ver meu perfil",
+        "step3": "Clique em Editar Perfil",
+        "step4": "No menu à esquerda, clique em Configurações de Privacidade",
+        "step5": "Em Meu Perfil, selecione Público",
+        "step6": "(Opcional) Também defina: Detalhes do Jogo → Público",
+        "step7": "(Opcional) Também defina: Lista de Amigos → Público",
+        "step8": "Clique em Salvar",
+        "step9": "Volte para ver Meu perfil novamente e obtenha seu ID Steam da URL"
+      }
+    },
+    "features": {
+      "title": "Recursos",
+      "achievements": {
+        "title": "Rastreamento de Conquistas",
+        "description": "Monitore seu progresso e desbloqueie todas as conquistas"
+      },
+      "guides": {
+        "title": "Guias Platina",
+        "description": "Crie e compartilhe guias detalhados para obter todas as conquistas"
+      },
+      "library": {
+        "title": "Biblioteca de Jogos",
+        "description": "Navegue e explore toda sua coleção Steam"
+      }
+    }
+  },
+  "games": {
+    "title": "Meus Jogos",
+    "loading": "Carregando jogos...",
+    "empty": "Nenhum jogo encontrado na sua biblioteca",
+    "playTime": "{{hours}}h jogadas",
+    "noPlayTime": "Não jogado",
+    "achievements": "{{count}} conquistas",
+    "searchPlaceholder": "Buscar jogos..."
+  },
+  "achievements": {
+    "title": "Conquistas",
+    "loading": "Carregando conquistas...",
+    "progress": "Progresso",
+    "unlocked": "{{count}} desbloqueadas",
+    "total": "{{count}} total",
+    "percentage": "{{percent}}% completo",
+    "locked": "Bloqueada",
+    "unlocked_achievement": "Desbloqueada",
+    "unlockDate": "Desbloqueada em {{date}}",
+    "hidden": "Conquista oculta",
+    "hiddenDescription": "Esta conquista está oculta até ser desbloqueada",
+    "backToGames": "Voltar para Jogos",
+    "createGuide": "Criar Guia Platina"
+  },
+  "guides": {
+    "library": "Biblioteca de Guias",
+    "myGuides": "Meus Guias",
+    "curatedGuides": "Guias Curados",
+    "createNew": "Criar Novo Guia",
+    "loading": "Carregando guias...",
+    "empty": "Nenhum guia disponível ainda",
+    "emptyOwn": "Você ainda não criou nenhum guia",
+    "entries": "{{count}} anotações",
+    "entry": "{{count}} anotação",
+    "preview": "Visualizar",
+    "import": "Importar",
+    "export": "Exportar Guia",
+    "exportSuccess": "Guia exportado com sucesso!",
+    "importSuccess": "Guia importado com sucesso!",
+    "importError": "Erro ao importar guia. Verifique o formato do arquivo.",
+    "selectGame": "Selecione um jogo para criar um guia",
+    "searchGame": "Pesquisar qualquer jogo na Steam...",
+    "searchMinChars": "Digite pelo menos 2 caracteres para pesquisar",
+    "searching": "Pesquisando...",
+    "noResults": "Nenhum jogo encontrado",
+    "backToLibrary": "Voltar para Biblioteca",
+    "backToEdit": "Voltar para Edição"
+  },
+  "guide": {
+    "title": "Guia Platina",
+    "editor": {
+      "title": "Editar Guia",
+      "newGuide": "Novo Guia",
+      "addEntry": "Adicionar Anotação",
+      "entryType": "Tipo de Anotação",
+      "achievement": "Conquista",
+      "note": "Nota Geral",
+      "selectAchievement": "Selecione uma conquista",
+      "noteTitle": "Título da Nota",
+      "content": "Conteúdo",
+      "contentPlaceholder": "Escreva seu guia aqui...",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "saveSuccess": "Guia salvo com sucesso!",
+      "deleteConfirm": "Tem certeza que deseja excluir esta anotação?",
+      "backToAchievements": "Voltar para Conquistas",
+      "viewGuide": "Visualizar Guia",
+      "loading": "Carregando...",
+      "markdownSupport": "Suporta formatação Markdown"
+    },
+    "view": {
+      "edit": "Editar Guia",
+      "collapse": "Encolher",
+      "expand": "Expandir"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "level": "Nível {{level}}",
+    "memberSince": "Membro desde {{date}}",
+    "loading": "Carregando perfil...",
+    "stats": {
+      "games": "Jogos",
+      "achievements": "Conquistas",
+      "perfectGames": "Jogos Perfeitos"
+    }
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "tryAgain": "Tentar novamente",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "view": "Visualizar",
+    "back": "Voltar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Próxima",
+    "page": "Página {{current}} de {{total}}"
+  }
+}

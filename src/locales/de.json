@@ -1,0 +1,173 @@
+{
+  "site": {
+    "name": "Steam Ally",
+    "description": "Dein Steam-Begleiter für Erfolge und Leitfäden"
+  },
+  "nav": {
+    "home": "Startseite",
+    "games": "Spiele",
+    "guides": "Leitfäden",
+    "profile": "Profil",
+    "login": "Mit Steam anmelden",
+    "logout": "Abmelden",
+    "theme": {
+      "light": "Helles Design",
+      "dark": "Dunkles Design"
+    }
+  },
+  "home": {
+    "title": "Steam Ally",
+    "subtitle": "Dein Steam-Begleiter für Erfolge und Leitfäden",
+    "description": "Verfolge deinen Fortschritt, erstelle Platin-Leitfäden und erkunde deine Steam-Bibliothek",
+    "searchPlaceholder": "Spiele auf Steam suchen...",
+    "loginRequired": "Melde dich mit Steam an, um auf alle Funktionen zuzugreifen",
+    "form": {
+      "title": "Finde Dein Steam-Profil",
+      "description": "Gib deine Steam-ID ein",
+      "label": "Steam-Kennung",
+      "placeholder": "Beispiel: 76561198012345678",
+      "exampleNote": "Beispiel: 76561198012345678",
+      "profileFound": "Profil gefunden! Klicke auf \"Profil aufrufen\", um fortzufahren.",
+      "profileNotFound": "Steam-Profil nicht gefunden. Überprüfe deine Eingabe oder versuche eine andere Kennung.",
+      "loadingProfile": "Profil wird geladen...",
+      "accessProfile": "Profil aufrufen",
+      "help": {
+        "title": "Wie finde ich meine Steam-ID?",
+        "step1": "Öffne Steam (Desktop-App oder Website)",
+        "step2": "Klicke oben auf deinen Benutzernamen → Mein Profil anzeigen",
+        "step3": "Klicke auf Profil bearbeiten",
+        "step4": "Klicke im linken Menü auf Datenschutzeinstellungen",
+        "step5": "Wähle unter Mein Profil die Option Öffentlich",
+        "step6": "(Optional) Setze auch: Spieldetails → Öffentlich",
+        "step7": "(Optional) Setze auch: Freundesliste → Öffentlich",
+        "step8": "Klicke auf Speichern",
+        "step9": "Gehe erneut zu Mein Profil anzeigen und hole dir deine Steam-ID aus der URL"
+      }
+    },
+    "features": {
+      "title": "Funktionen",
+      "achievements": {
+        "title": "Erfolgs-Tracking",
+        "description": "Überwache deinen Fortschritt und schalte alle Erfolge frei"
+      },
+      "guides": {
+        "title": "Platin-Leitfäden",
+        "description": "Erstelle und teile detaillierte Leitfäden zum Erreichen aller Erfolge"
+      },
+      "library": {
+        "title": "Spiele-Bibliothek",
+        "description": "Durchsuche und erkunde deine gesamte Steam-Sammlung"
+      }
+    }
+  },
+  "games": {
+    "title": "Meine Spiele",
+    "loading": "Spiele werden geladen...",
+    "empty": "Keine Spiele in deiner Bibliothek gefunden",
+    "playTime": "{{hours}}h gespielt",
+    "noPlayTime": "Nicht gespielt",
+    "achievements": "{{count}} Erfolge",
+    "searchPlaceholder": "Spiele suchen..."
+  },
+  "achievements": {
+    "title": "Erfolge",
+    "loading": "Erfolge werden geladen...",
+    "progress": "Fortschritt",
+    "unlocked": "{{count}} freigeschaltet",
+    "total": "{{count}} gesamt",
+    "percentage": "{{percent}}% abgeschlossen",
+    "locked": "Gesperrt",
+    "unlocked_achievement": "Freigeschaltet",
+    "unlockDate": "Freigeschaltet am {{date}}",
+    "hidden": "Versteckter Erfolg",
+    "hiddenDescription": "Dieser Erfolg ist bis zur Freischaltung versteckt",
+    "backToGames": "Zurück zu Spielen",
+    "createGuide": "Platin-Leitfaden erstellen"
+  },
+  "guides": {
+    "library": "Leitfaden-Bibliothek",
+    "myGuides": "Meine Leitfäden",
+    "curatedGuides": "Kuratierte Leitfäden",
+    "createNew": "Neuen Leitfaden erstellen",
+    "loading": "Leitfäden werden geladen...",
+    "empty": "Noch keine Leitfäden verfügbar",
+    "emptyOwn": "Du hast noch keine Leitfäden erstellt",
+    "entries": "{{count}} Einträge",
+    "entry": "{{count}} Eintrag",
+    "preview": "Vorschau",
+    "import": "Importieren",
+    "export": "Leitfaden exportieren",
+    "exportSuccess": "Leitfaden erfolgreich exportiert!",
+    "importSuccess": "Leitfaden erfolgreich importiert!",
+    "importError": "Fehler beim Importieren des Leitfadens. Überprüfe das Dateiformat.",
+    "selectGame": "Wähle ein Spiel aus, um einen Leitfaden zu erstellen",
+    "searchGame": "Beliebiges Spiel auf Steam suchen...",
+    "searchMinChars": "Gib mindestens 2 Zeichen ein, um zu suchen",
+    "searching": "Suche läuft...",
+    "noResults": "Keine Spiele gefunden",
+    "backToLibrary": "Zurück zur Bibliothek",
+    "backToEdit": "Zurück zur Bearbeitung"
+  },
+  "guide": {
+    "title": "Platin-Leitfaden",
+    "editor": {
+      "title": "Leitfaden bearbeiten",
+      "newGuide": "Neuer Leitfaden",
+      "addEntry": "Eintrag hinzufügen",
+      "entryType": "Eintragstyp",
+      "achievement": "Erfolg",
+      "note": "Allgemeine Notiz",
+      "selectAchievement": "Wähle einen Erfolg aus",
+      "noteTitle": "Notiz-Titel",
+      "content": "Inhalt",
+      "contentPlaceholder": "Schreibe deinen Leitfaden hier...",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "saveSuccess": "Leitfaden erfolgreich gespeichert!",
+      "deleteConfirm": "Bist du sicher, dass du diesen Eintrag löschen möchtest?",
+      "backToAchievements": "Zurück zu Erfolgen",
+      "viewGuide": "Leitfaden anzeigen",
+      "loading": "Wird geladen...",
+      "markdownSupport": "Unterstützt Markdown-Formatierung"
+    },
+    "view": {
+      "edit": "Leitfaden bearbeiten",
+      "collapse": "Einklappen",
+      "expand": "Ausklappen"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "level": "Level {{level}}",
+    "memberSince": "Mitglied seit {{date}}",
+    "loading": "Profil wird geladen...",
+    "stats": {
+      "games": "Spiele",
+      "achievements": "Erfolge",
+      "perfectGames": "Perfekte Spiele"
+    }
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "tryAgain": "Erneut versuchen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Anzeigen",
+    "back": "Zurück",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "pagination": {
+    "previous": "Vorherige",
+    "next": "Nächste",
+    "page": "Seite {{current}} von {{total}}"
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "site": {
+    "name": "Steam Ally",
+    "description": "Il tuo compagno Steam per obiettivi e guide"
+  },
+  "nav": {
+    "home": "Home",
+    "games": "Giochi",
+    "guides": "Guide",
+    "profile": "Profilo",
+    "login": "Accedi con Steam",
+    "logout": "Esci",
+    "theme": {
+      "light": "Tema chiaro",
+      "dark": "Tema scuro"
+    }
+  },
+  "home": {
+    "title": "Steam Ally",
+    "subtitle": "Il tuo compagno Steam per obiettivi e guide",
+    "description": "Traccia i tuoi progressi, crea guide platino ed esplora la tua libreria Steam",
+    "searchPlaceholder": "Cerca giochi su Steam...",
+    "loginRequired": "Accedi con Steam per accedere a tutte le funzionalità",
+    "form": {
+      "title": "Trova Il Tuo Profilo Steam",
+      "description": "Digita il tuo ID Steam",
+      "label": "Identificatore Steam",
+      "placeholder": "Esempio: 76561198012345678",
+      "exampleNote": "Esempio: 76561198012345678",
+      "profileFound": "Profilo trovato! Clicca su \"Accedi al Profilo\" per continuare.",
+      "profileNotFound": "Profilo Steam non trovato. Verifica l'input o prova un identificatore diverso.",
+      "loadingProfile": "Caricamento Profilo...",
+      "accessProfile": "Accedi al Profilo",
+      "help": {
+        "title": "Come trovare il tuo ID Steam?",
+        "step1": "Apri Steam (app desktop o sito web)",
+        "step2": "Clicca sul tuo nome utente in alto → Visualizza il mio profilo",
+        "step3": "Clicca su Modifica Profilo",
+        "step4": "Nel menu a sinistra, clicca su Impostazioni Privacy",
+        "step5": "Sotto Il Mio Profilo, seleziona Pubblico",
+        "step6": "(Opzionale) Imposta anche: Dettagli Gioco → Pubblico",
+        "step7": "(Opzionale) Imposta anche: Lista Amici → Pubblico",
+        "step8": "Clicca su Salva",
+        "step9": "Vai a visualizzare Il mio profilo di nuovo e ottieni il tuo ID Steam dall'URL"
+      }
+    },
+    "features": {
+      "title": "Funzionalità",
+      "achievements": {
+        "title": "Tracciamento Obiettivi",
+        "description": "Monitora i tuoi progressi e sblocca tutti gli obiettivi"
+      },
+      "guides": {
+        "title": "Guide Platino",
+        "description": "Crea e condividi guide dettagliate per ottenere tutti gli obiettivi"
+      },
+      "library": {
+        "title": "Libreria Giochi",
+        "description": "Naviga ed esplora tutta la tua collezione Steam"
+      }
+    }
+  },
+  "games": {
+    "title": "I Miei Giochi",
+    "loading": "Caricamento giochi...",
+    "empty": "Nessun gioco trovato nella tua libreria",
+    "playTime": "{{hours}}h giocate",
+    "noPlayTime": "Non giocato",
+    "achievements": "{{count}} obiettivi",
+    "searchPlaceholder": "Cerca giochi..."
+  },
+  "achievements": {
+    "title": "Obiettivi",
+    "loading": "Caricamento obiettivi...",
+    "progress": "Progresso",
+    "unlocked": "{{count}} sbloccati",
+    "total": "{{count}} totali",
+    "percentage": "{{percent}}% completato",
+    "locked": "Bloccato",
+    "unlocked_achievement": "Sbloccato",
+    "unlockDate": "Sbloccato il {{date}}",
+    "hidden": "Obiettivo nascosto",
+    "hiddenDescription": "Questo obiettivo è nascosto fino allo sblocco",
+    "backToGames": "Torna ai Giochi",
+    "createGuide": "Crea Guida Platino"
+  },
+  "guides": {
+    "library": "Libreria Guide",
+    "myGuides": "Le Mie Guide",
+    "curatedGuides": "Guide Selezionate",
+    "createNew": "Crea Nuova Guida",
+    "loading": "Caricamento guide...",
+    "empty": "Nessuna guida disponibile ancora",
+    "emptyOwn": "Non hai ancora creato nessuna guida",
+    "entries": "{{count}} annotazioni",
+    "entry": "{{count}} annotazione",
+    "preview": "Anteprima",
+    "import": "Importa",
+    "export": "Esporta Guida",
+    "exportSuccess": "Guida esportata con successo!",
+    "importSuccess": "Guida importata con successo!",
+    "importError": "Errore nell'importazione della guida. Verifica il formato del file.",
+    "selectGame": "Seleziona un gioco per creare una guida",
+    "searchGame": "Cerca qualsiasi gioco su Steam...",
+    "searchMinChars": "Digita almeno 2 caratteri per cercare",
+    "searching": "Ricerca in corso...",
+    "noResults": "Nessun gioco trovato",
+    "backToLibrary": "Torna alla Libreria",
+    "backToEdit": "Torna alla Modifica"
+  },
+  "guide": {
+    "title": "Guida Platino",
+    "editor": {
+      "title": "Modifica Guida",
+      "newGuide": "Nuova Guida",
+      "addEntry": "Aggiungi Annotazione",
+      "entryType": "Tipo di Annotazione",
+      "achievement": "Obiettivo",
+      "note": "Nota Generale",
+      "selectAchievement": "Seleziona un obiettivo",
+      "noteTitle": "Titolo della Nota",
+      "content": "Contenuto",
+      "contentPlaceholder": "Scrivi la tua guida qui...",
+      "save": "Salva",
+      "cancel": "Annulla",
+      "saveSuccess": "Guida salvata con successo!",
+      "deleteConfirm": "Sei sicuro di voler eliminare questa annotazione?",
+      "backToAchievements": "Torna agli Obiettivi",
+      "viewGuide": "Visualizza Guida",
+      "loading": "Caricamento...",
+      "markdownSupport": "Supporta formattazione Markdown"
+    },
+    "view": {
+      "edit": "Modifica Guida",
+      "collapse": "Comprimi",
+      "expand": "Espandi"
+    }
+  },
+  "profile": {
+    "title": "Profilo",
+    "level": "Livello {{level}}",
+    "memberSince": "Membro dal {{date}}",
+    "loading": "Caricamento profilo...",
+    "stats": {
+      "games": "Giochi",
+      "achievements": "Obiettivi",
+      "perfectGames": "Giochi Perfetti"
+    }
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "tryAgain": "Riprova",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "view": "Visualizza",
+    "back": "Indietro",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "sort": "Ordina",
+    "close": "Chiudi",
+    "confirm": "Conferma",
+    "yes": "Sì",
+    "no": "No"
+  },
+  "pagination": {
+    "previous": "Precedente",
+    "next": "Successiva",
+    "page": "Pagina {{current}} di {{total}}"
+  }
+}

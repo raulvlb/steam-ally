@@ -1,0 +1,173 @@
+{
+  "site": {
+    "name": "Steam Ally",
+    "description": "Votre compagnon Steam pour succès et guides"
+  },
+  "nav": {
+    "home": "Accueil",
+    "games": "Jeux",
+    "guides": "Guides",
+    "profile": "Profil",
+    "login": "Se connecter avec Steam",
+    "logout": "Se déconnecter",
+    "theme": {
+      "light": "Thème clair",
+      "dark": "Thème sombre"
+    }
+  },
+  "home": {
+    "title": "Steam Ally",
+    "subtitle": "Votre compagnon Steam pour succès et guides",
+    "description": "Suivez votre progression, créez des guides platine et explorez votre bibliothèque Steam",
+    "searchPlaceholder": "Rechercher des jeux sur Steam...",
+    "loginRequired": "Connectez-vous avec Steam pour accéder à toutes les fonctionnalités",
+    "form": {
+      "title": "Trouvez Votre Profil Steam",
+      "description": "Saisissez votre ID Steam",
+      "label": "Identifiant Steam",
+      "placeholder": "Exemple: 76561198012345678",
+      "exampleNote": "Exemple: 76561198012345678",
+      "profileFound": "Profil trouvé! Cliquez sur \"Accéder au Profil\" pour continuer.",
+      "profileNotFound": "Profil Steam introuvable. Vérifiez votre saisie ou essayez un identifiant différent.",
+      "loadingProfile": "Chargement du Profil...",
+      "accessProfile": "Accéder au Profil",
+      "help": {
+        "title": "Comment trouver votre ID Steam?",
+        "step1": "Ouvrez Steam (application de bureau ou site web)",
+        "step2": "Cliquez sur votre nom d'utilisateur en haut → Voir mon profil",
+        "step3": "Cliquez sur Modifier le Profil",
+        "step4": "Dans le menu de gauche, cliquez sur Paramètres de Confidentialité",
+        "step5": "Sous Mon Profil, sélectionnez Public",
+        "step6": "(Optionnel) Définissez également: Détails du Jeu → Public",
+        "step7": "(Optionnel) Définissez également: Liste d'Amis → Public",
+        "step8": "Cliquez sur Enregistrer",
+        "step9": "Allez voir Mon profil à nouveau et obtenez votre ID Steam depuis l'URL"
+      }
+    },
+    "features": {
+      "title": "Fonctionnalités",
+      "achievements": {
+        "title": "Suivi des Succès",
+        "description": "Surveillez votre progression et débloquez tous les succès"
+      },
+      "guides": {
+        "title": "Guides Platine",
+        "description": "Créez et partagez des guides détaillés pour obtenir tous les succès"
+      },
+      "library": {
+        "title": "Bibliothèque de Jeux",
+        "description": "Parcourez et explorez toute votre collection Steam"
+      }
+    }
+  },
+  "games": {
+    "title": "Mes Jeux",
+    "loading": "Chargement des jeux...",
+    "empty": "Aucun jeu trouvé dans votre bibliothèque",
+    "playTime": "{{hours}}h jouées",
+    "noPlayTime": "Non joué",
+    "achievements": "{{count}} succès",
+    "searchPlaceholder": "Rechercher des jeux..."
+  },
+  "achievements": {
+    "title": "Succès",
+    "loading": "Chargement des succès...",
+    "progress": "Progression",
+    "unlocked": "{{count}} débloqués",
+    "total": "{{count}} total",
+    "percentage": "{{percent}}% terminé",
+    "locked": "Verrouillé",
+    "unlocked_achievement": "Débloqué",
+    "unlockDate": "Débloqué le {{date}}",
+    "hidden": "Succès caché",
+    "hiddenDescription": "Ce succès est caché jusqu'à ce qu'il soit débloqué",
+    "backToGames": "Retour aux Jeux",
+    "createGuide": "Créer un Guide Platine"
+  },
+  "guides": {
+    "library": "Bibliothèque de Guides",
+    "myGuides": "Mes Guides",
+    "curatedGuides": "Guides Sélectionnés",
+    "createNew": "Créer un Nouveau Guide",
+    "loading": "Chargement des guides...",
+    "empty": "Aucun guide disponible pour le moment",
+    "emptyOwn": "Vous n'avez pas encore créé de guides",
+    "entries": "{{count}} annotations",
+    "entry": "{{count}} annotation",
+    "preview": "Aperçu",
+    "import": "Importer",
+    "export": "Exporter le Guide",
+    "exportSuccess": "Guide exporté avec succès !",
+    "importSuccess": "Guide importé avec succès !",
+    "importError": "Erreur lors de l'importation du guide. Vérifiez le format du fichier.",
+    "selectGame": "Sélectionnez un jeu pour créer un guide",
+    "searchGame": "Rechercher n'importe quel jeu sur Steam...",
+    "searchMinChars": "Saisissez au moins 2 caractères pour rechercher",
+    "searching": "Recherche en cours...",
+    "noResults": "Aucun jeu trouvé",
+    "backToLibrary": "Retour à la Bibliothèque",
+    "backToEdit": "Retour à l'Édition"
+  },
+  "guide": {
+    "title": "Guide Platine",
+    "editor": {
+      "title": "Éditer le Guide",
+      "newGuide": "Nouveau Guide",
+      "addEntry": "Ajouter une Annotation",
+      "entryType": "Type d'Annotation",
+      "achievement": "Succès",
+      "note": "Note Générale",
+      "selectAchievement": "Sélectionnez un succès",
+      "noteTitle": "Titre de la Note",
+      "content": "Contenu",
+      "contentPlaceholder": "Écrivez votre guide ici...",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "saveSuccess": "Guide enregistré avec succès !",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette annotation ?",
+      "backToAchievements": "Retour aux Succès",
+      "viewGuide": "Voir le Guide",
+      "loading": "Chargement...",
+      "markdownSupport": "Prend en charge le format Markdown"
+    },
+    "view": {
+      "edit": "Éditer le Guide",
+      "collapse": "Réduire",
+      "expand": "Développer"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "level": "Niveau {{level}}",
+    "memberSince": "Membre depuis {{date}}",
+    "loading": "Chargement du profil...",
+    "stats": {
+      "games": "Jeux",
+      "achievements": "Succès",
+      "perfectGames": "Jeux Parfaits"
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "tryAgain": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Éditer",
+    "view": "Voir",
+    "back": "Retour",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "page": "Page {{current}} sur {{total}}"
+  }
+}

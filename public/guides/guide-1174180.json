@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "appId": "1174180",
+  "exportDate": "2026-01-30T16:59:40.961Z",
+  "guide": {
+    "steamId": "76561198183424521",
+    "appId": 1174180,
+    "entries": [
+      {
+        "id": "1769791793894",
+        "type": "achievement",
+        "achievementId": "Achievement1",
+        "content": "teste"
+      },
+      {
+        "id": "1769791799145",
+        "type": "general",
+        "title": "teste2",
+        "content": "teste2"
+      },
+      {
+        "id": "1769792314424",
+        "type": "achievement",
+        "achievementId": "Achievement6",
+        "content": "teste3\n\n\n\n\n![Capa RDR2](https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/3zDubiWo2X5WU18FGiwlsf4lKWb8MwkE.png)\n"
+      }
+    ]
+  }
+}
