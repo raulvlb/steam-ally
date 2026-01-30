@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronLeft, Calendar, Gamepad2, Monitor, Apple, Tag, ExternalLink } from 'lucide-react';
+import { ChevronLeft, Calendar, Gamepad2, Monitor, Apple, ExternalLink } from 'lucide-react';
 import { steamApiClient } from '@/api/steam';
 import { GameFullDetails } from '@/types';
 import { Card, CardContent, SkeletonProfile } from '@/components';

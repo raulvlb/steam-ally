@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Trophy, Lock, Unlock, Search, ChevronLeft } from 'lucide-react';
 import { useSteamAchievements, useDebounce } from '@/hooks';
 import { AchievementWithDetails } from '@/types';
@@ -15,7 +15,6 @@ type FilterOption = 'all' | 'unlocked' | 'locked';
 
 export function AchievementsPage() {
   const { steamId, appId } = useParams<{ steamId: string; appId: string }>();
-  const navigate = useNavigate();
   const { achievements, stats, isLoading, error } = useSteamAchievements(
     steamId || null,
     appId ? parseInt(appId) : null

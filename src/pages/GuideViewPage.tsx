@@ -13,7 +13,7 @@ import {
   Edit2,
   Download
 } from 'lucide-react';
-import { Card, CardHeader, CardContent, SkeletonList } from '@/components';
+import { Card, CardContent, SkeletonList } from '@/components';
 import { useToast, useUserStore } from '@/store';
 import { AchievementWithDetails, Guide, GuideEntry } from '@/types';
 

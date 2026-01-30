@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { SteamProfile } from '@/types';
+import { SteamPlayer } from '@/types';
 
 /**
  * User Store
@@ -9,9 +9,9 @@ import { SteamProfile } from '@/types';
 
 interface UserState {
   steamId: string | null;
-  profile: SteamProfile | null;
+  profile: SteamPlayer | null;
   setSteamId: (steamId: string) => void;
-  setProfile: (profile: SteamProfile | null) => void;
+  setProfile: (profile: SteamPlayer | null) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
 }
@@ -26,7 +26,7 @@ export const useUserStore = create<UserState>()(
         set({ steamId });
       },
 
-      setProfile: (profile: SteamProfile | null) => {
+      setProfile: (profile: SteamPlayer | null) => {
         set({ profile });
       },
 

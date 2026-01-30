@@ -62,7 +62,7 @@ export function Navbar() {
                 </Link>
 
                 <Link
-                  to={`/profile/${profile?.steamId}`}
+                  to={`/profile/${profile?.steamid}`}
                   className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-steam-accent dark:hover:text-steam-accent transition-colors"
                 >
                   <User className="w-5 h-5" />
@@ -74,11 +74,11 @@ export function Navbar() {
                   <div className="flex items-center space-x-3 pl-4 border-l border-gray-300 dark:border-steam-dark">
                     <img
                       src={profile.avatar}
-                      alt={profile.personaName}
+                      alt={profile.personaname}
                       className="w-8 h-8 rounded-full border-2 border-steam-accent"
                     />
                     <span className="hidden md:inline text-sm font-medium text-gray-900 dark:text-white">
-                      {profile.personaName}
+                      {profile.personaname}
                     </span>
                   </div>
                 )}

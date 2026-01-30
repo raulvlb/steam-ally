@@ -41,7 +41,6 @@ export function GuideEditorPage() {
   const { steamId: currentUserSteamId } = useUserStore();
   
   // Determine if this is a new guide (no steamId in URL)
-  const isNewGuide = !steamId;
   const actualSteamId = steamId || currentUserSteamId;
 
   const [achievements, setAchievements] = useState<AchievementWithDetails[]>([]);

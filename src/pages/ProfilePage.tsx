@@ -4,8 +4,8 @@ import { User, Calendar, MapPin, Award, Clock, Gamepad2, Loader2 } from 'lucide-
 import { useSteamProfile, useSteamGames } from '@/hooks';
 import { steamService } from '@/services/steam.service';
 import { GameDetails } from '@/types';
-import { formatPlaytime, formatDate, getPersonaStateLabel, getPersonaStateColor } from '@/utils';
-import { Card, CardHeader, CardContent, GameCard, SkeletonProfile, SkeletonList } from '@/components';
+import { formatDate, getPersonaStateLabel, getPersonaStateColor } from '@/utils';
+import { Card, CardContent, GameCard, SkeletonProfile, SkeletonList } from '@/components';
 
 /**
  * Profile Page

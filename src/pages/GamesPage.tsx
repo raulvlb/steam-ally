@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Search, Loader2, Gamepad2, SortAsc, SortDesc } from 'lucide-react';
+import { Search, Gamepad2 } from 'lucide-react';
 import { useSteamGames, useDebounce, usePagination } from '@/hooks';
 import { GameCard, Card, CardContent, Pagination, SkeletonList } from '@/components';
 

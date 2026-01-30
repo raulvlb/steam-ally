@@ -88,9 +88,25 @@ export function HomePage() {
           return;
         }
 
-        // Save to store
+        // Save to store - Convert UserProfile to SteamPlayer format
         setSteamId(profile.steamId);
-        setProfile(profile);
+        const steamPlayer: import('@/types').SteamPlayer = {
+          steamid: profile.steamId,
+          communityvisibilitystate: 3,
+          profilestate: 1,
+          personaname: profile.personaName,
+          profileurl: profile.profileUrl,
+          avatar: profile.avatar,
+          avatarmedium: profile.avatar,
+          avatarfull: profile.avatarFull,
+          avatarhash: '',
+          personastate: profile.personaState,
+          realname: profile.realName,
+          timecreated: profile.timeCreated,
+          loccountrycode: profile.countryCode,
+          personastateflags: 0,
+        };
+        setProfile(steamPlayer);
         
         toast.success(`Welcome, ${profile.personaName}!`);
         
@@ -119,9 +135,25 @@ export function HomePage() {
         return;
       }
 
-      // Save to store
+      // Save to store - Convert UserProfile to SteamPlayer format
       setSteamId(profile.steamId);
-      setProfile(profile);
+      const steamPlayer: import('@/types').SteamPlayer = {
+        steamid: profile.steamId,
+        communityvisibilitystate: 3,
+        profilestate: 1,
+        personaname: profile.personaName,
+        profileurl: profile.profileUrl,
+        avatar: profile.avatar,
+        avatarmedium: profile.avatar,
+        avatarfull: profile.avatarFull,
+        avatarhash: '',
+        personastate: profile.personaState,
+        realname: profile.realName,
+        timecreated: profile.timeCreated,
+        loccountrycode: profile.countryCode,
+        personastateflags: 0,
+      };
+      setProfile(steamPlayer);
       
       toast.success(`Welcome, ${profile.personaName}!`);
       

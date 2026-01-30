@@ -41,7 +41,7 @@ interface GuideData {
 export function GuidesLibraryPage() {
   const navigate = useNavigate();
   const toast = useToast();
-  const { profile, steamId } = useUserStore();
+  const { profile } = useUserStore();
   const [guides, setGuides] = useState<GuideMetadata[]>([]);
   const [filteredGuides, setFilteredGuides] = useState<GuideMetadata[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,7 +50,7 @@ export function GuidesLibraryPage() {
   const [searchGames, setSearchGames] = useState<any[]>([]);
   const [isSearchingGames, setIsSearchingGames] = useState(false);
   const [gameSearchQuery, setGameSearchQuery] = useState('');
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [searchTimeout, setSearchTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   // Load guides index
   useEffect(() => {
@@ -137,15 +137,15 @@ export function GuidesLibraryPage() {
       const guideData: GuideData = await response.json();
 
       // Save to localStorage for the current user
-      if (profile?.steamId) {
+      if (profile?.steamid) {
         localStorage.setItem(
-          `guide_${profile.steamId}_${guide.appId}`,
+          `guide_${profile.steamid}_${guide.appId}`,
           JSON.stringify(guideData.guide)
         );
         toast.success(`Guia de ${guide.gameName} importado com sucesso!`);
         
         // Navigate to the guide editor
-        navigate(`/guide/${profile.steamId}/${guide.appId}`);
+        navigate(`/guide/${profile.steamid}/${guide.appId}`);
       } else {
         toast.error('Você precisa estar logado para importar guias');
       }

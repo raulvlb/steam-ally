@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Search, Loader2, Sparkles, Flame, TrendingUp, DollarSign, Clock, Star } from 'lucide-react';
+import { Search, Loader2, Sparkles, TrendingUp } from 'lucide-react';
 import { steamApiClient } from '@/api/steam';
 import { SteamStoreGame } from '@/types';
 import { useDebounce } from '@/hooks';
@@ -21,7 +21,6 @@ interface FeaturedCategory {
 }
 
 export function GamesExplorePage() {
-  const { i18n } = useTranslation();
   const [categories, setCategories] = useState<FeaturedCategory[]>([]);
   const [searchResults, setSearchResults] = useState<SteamStoreGame[]>([]);
   const [searchQuery, setSearchQuery] = useState('');

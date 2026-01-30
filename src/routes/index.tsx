@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HomePage, ProfilePage, GamesPage, GamesExplorePage, GameDetailPage, AchievementsPage, GuideEditorPage, GuideViewPage, GuidesLibraryPage } from '@/pages';
 import { ProtectedRoute } from '@/components';
 
