@@ -69,7 +69,8 @@ export function GuidesLibraryPage() {
     };
 
     loadGuides();
-  }, [toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Filter guides by search query
   useEffect(() => {
