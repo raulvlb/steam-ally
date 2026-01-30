@@ -28,6 +28,16 @@ const STEAM_LANGUAGE_MAP: Record<string, string> = {
   'it': 'italian'
 };
 
+// Map i18n language codes to Steam country codes for pricing
+const STEAM_COUNTRY_MAP: Record<string, string> = {
+  'en': 'us',
+  'pt-BR': 'br',
+  'es': 'es',
+  'fr': 'fr',
+  'de': 'de',
+  'it': 'it'
+};
+
 class SteamApiClient {
   private client: AxiosInstance;
 
@@ -183,7 +193,8 @@ class SteamApiClient {
   async getGameDetails(appId: number) {
     const currentLang = i18n.language || 'en';
     const steamLang = STEAM_LANGUAGE_MAP[currentLang] || 'english';
-    return this.get(`${API_BASE_URL}?endpoint=GetAppDetails&appids=${appId}&l=${steamLang}`);
+    const steamCountry = STEAM_COUNTRY_MAP[currentLang] || 'us';
+    return this.get(`${API_BASE_URL}?endpoint=GetAppDetails&appids=${appId}&l=${steamLang}&cc=${steamCountry}`);
   }
 
   /**
