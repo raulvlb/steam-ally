@@ -165,6 +165,17 @@ module.exports = async function handler(req, res) {
         break;
       }
 
+      // Store Search
+      case 'StoreSearch': {
+        const { term, l = 'english', cc = 'US' } = params;
+        if (!term) {
+          return res.status(400).json({ error: 'Missing term' });
+        }
+        url = `${STEAM_STORE_BASE}/api/storesearch?term=${encodeURIComponent(term)}&l=${l}&cc=${cc}`;
+        data = await fetchSteamAPI(url);
+        break;
+      }
+
       default:
         return res.status(400).json({ error: `Unknown endpoint: ${endpoint}` });
     }

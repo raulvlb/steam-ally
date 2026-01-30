@@ -175,11 +175,9 @@ class SteamApiClient {
 
   /**
    * Search games on Steam
-   * Note: Store search API has CORS issues, may not work
    */
   async searchGames(query: string) {
-    // Store search is not proxied yet - may have CORS issues
-    return this.get(`https://store.steampowered.com/api/storesearch?term=${encodeURIComponent(query)}&l=english&cc=US`);
+    return this.get(`${API_BASE_URL}?endpoint=StoreSearch&term=${encodeURIComponent(query)}`);
   }
 
   /**
