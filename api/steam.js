@@ -3,7 +3,7 @@
  * This function proxies requests to Steam API to avoid CORS issues
  */
 
-const STEAM_API_KEY = process.env.VITE_STEAM_API_KEY;
+const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const STEAM_API_BASE = 'https://api.steampowered.com';
 const STEAM_STORE_BASE = 'https://store.steampowered.com';
 
