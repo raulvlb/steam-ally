@@ -3,12 +3,11 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
 /**
  * Steam API Client
  * Handles all HTTP requests to Steam Web API with retry logic and error handling
+ * Uses Vercel serverless functions as proxy to avoid CORS issues
  */
 
-// Use Vite proxy in development, direct API in production
-const STEAM_API_BASE_URL = import.meta.env.DEV ? '/api/steam' : 'https://api.steampowered.com';
-const STEAM_STORE_API = import.meta.env.DEV ? '/store.steampowered.com/api' : 'https://store.steampowered.com/api';
-const API_KEY = import.meta.env.VITE_STEAM_API_KEY;
+// Always use our API proxy (both dev and production)
+const API_BASE_URL = '/api/steam';
 
 // Request timeout in milliseconds
 const REQUEST_TIMEOUT = 10000;
@@ -114,168 +113,95 @@ class SteamApiClient {
    * Get player summaries
    */
   async getPlayerSummaries(steamIds: string[]) {
-    const url = `${STEAM_API_BASE_URL}/ISteamUser/GetPlayerSummaries/v0002/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        steamids: steamIds.join(','),
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetPlayerSummaries&steamids=${steamIds.join(',')}`);
   }
 
   /**
    * Resolve vanity URL to Steam ID
    */
   async resolveVanityURL(vanityUrl: string) {
-    const url = `${STEAM_API_BASE_URL}/ISteamUser/ResolveVanityURL/v0001/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        vanityurl: vanityUrl,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=ResolveVanityURL&vanityurl=${vanityUrl}`);
   }
 
   /**
    * Get owned games for a user
    */
   async getOwnedGames(steamId: string, includeAppInfo = true, includeFreeGames = true) {
-    const url = `${STEAM_API_BASE_URL}/IPlayerService/GetOwnedGames/v0001/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        steamid: steamId,
-        include_appinfo: includeAppInfo ? 1 : 0,
-        include_played_free_games: includeFreeGames ? 1 : 0,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetOwnedGames&steamid=${steamId}&include_appinfo=${includeAppInfo ? 1 : 0}&include_played_free_games=${includeFreeGames ? 1 : 0}`);
   }
 
   /**
    * Get recently played games
    */
   async getRecentlyPlayedGames(steamId: string) {
-    const url = `${STEAM_API_BASE_URL}/IPlayerService/GetRecentlyPlayedGames/v0001/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        steamid: steamId,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetRecentlyPlayedGames&steamid=${steamId}`);
   }
 
   /**
    * Get user stats for game
    */
   async getUserStatsForGame(steamId: string, appId: number) {
-    const url = `${STEAM_API_BASE_URL}/ISteamUserStats/GetUserStatsForGame/v0002/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        steamid: steamId,
-        appid: appId,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetUserStatsForGame&steamid=${steamId}&appid=${appId}`);
   }
 
   /**
    * Get player achievements
    */
   async getPlayerAchievements(steamId: string, appId: number) {
-    const url = `${STEAM_API_BASE_URL}/ISteamUserStats/GetPlayerAchievements/v0001/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        steamid: steamId,
-        appid: appId,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetPlayerAchievements&steamid=${steamId}&appid=${appId}`);
   }
 
   /**
    * Get game schema (achievement definitions)
    */
   async getSchemaForGame(appId: number) {
-    const url = `${STEAM_API_BASE_URL}/ISteamUserStats/GetSchemaForGame/v2/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        appid: appId,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetSchemaForGame&appid=${appId}`);
   }
 
   /**
    * Get Steam level
    */
   async getSteamLevel(steamId: string) {
-    const url = `${STEAM_API_BASE_URL}/IPlayerService/GetSteamLevel/v1/`;
-    return this.get(url, {
-      params: {
-        key: API_KEY,
-        steamid: steamId,
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetSteamLevel&steamid=${steamId}`);
   }
 
   /**
    * Get game details from Steam Store API
    */
   async getGameDetails(appId: number) {
-    const url = `${STEAM_STORE_API}/appdetails`;
-    return this.get(url, {
-      params: {
-        appids: appId,
-        l: 'english',
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetAppDetails&appids=${appId}&l=english`);
   }
 
   /**
    * Search games on Steam
+   * Note: Store search API has CORS issues, may not work
    */
   async searchGames(query: string) {
-    const url = `${STEAM_STORE_API}/storesearch`;
-    return this.get(url, {
-      params: {
-        term: query,
-        l: 'english',
-        cc: 'US',
-      },
-    });
+    // Store search is not proxied yet - may have CORS issues
+    return this.get(`https://store.steampowered.com/api/storesearch?term=${encodeURIComponent(query)}&l=english&cc=US`);
   }
 
   /**
    * Get featured games from Steam
    */
   async getFeaturedGames() {
-    const url = `${STEAM_STORE_API}/featured`;
-    return this.get(url);
+    return this.get(`${API_BASE_URL}?endpoint=GetFeaturedGames&cc=us`);
   }
 
   /**
    * Get featured categories with promotions and featured games
    */
   async getFeaturedCategories() {
-    const url = `${STEAM_STORE_API}/featuredcategories`;
-    return this.get(url, {
-      params: {
-        l: 'portuguese',
-        cc: 'BR',
-      },
-    });
+    return this.get(`${API_BASE_URL}?endpoint=GetFeaturedCategories&cc=BR`);
   }
 
   /**
    * Get user's wishlist
+   * Note: Wishlist API may have CORS issues
    */
   async getWishlist(steamId: string) {
-    // Steam wishlist uses a different endpoint
-    const url = import.meta.env.DEV 
-      ? `/store.steampowered.com/wishlist/profiles/${steamId}/wishlistdata/`
-      : `https://store.steampowered.com/wishlist/profiles/${steamId}/wishlistdata/`;
-    
-    return this.get(url);
+    // Steam wishlist doesn't support CORS - will likely fail
+    return this.get(`https://store.steampowered.com/wishlist/profiles/${steamId}/wishlistdata/`);
   }
 
   /**
@@ -292,13 +218,7 @@ class SteamApiClient {
       
       // Check if it's a direct Steam ID64 (17 digits)
       if (/^\d{17}$/.test(cleaned)) {
-        const url = `${STEAM_API_BASE_URL}/ISteamUser/GetPlayerSummaries/v0002/`;
-        const response: any = await this.get(url, {
-          params: {
-            key: API_KEY,
-            steamids: cleaned,
-          },
-        });
+        const response: any = await this.get(`${API_BASE_URL}?endpoint=GetPlayerSummaries&steamids=${cleaned}`);
         
         if (response?.response?.players?.length > 0) {
           const player = response.response.players[0];
@@ -315,25 +235,13 @@ class SteamApiClient {
       }
 
       // Try to resolve as vanity URL
-      const vanityUrl = `${STEAM_API_BASE_URL}/ISteamUser/ResolveVanityURL/v0001/`;
-      const vanityResponse: any = await this.get(vanityUrl, {
-        params: {
-          key: API_KEY,
-          vanityurl: cleaned,
-        },
-      });
+      const vanityResponse: any = await this.get(`${API_BASE_URL}?endpoint=ResolveVanityURL&vanityurl=${cleaned}`);
 
       if (vanityResponse?.response?.success === 1) {
         const steamId = vanityResponse.response.steamid;
         
         // Get player info
-        const url = `${STEAM_API_BASE_URL}/ISteamUser/GetPlayerSummaries/v0002/`;
-        const response: any = await this.get(url, {
-          params: {
-            key: API_KEY,
-            steamids: steamId,
-          },
-        });
+        const response: any = await this.get(`${API_BASE_URL}?endpoint=GetPlayerSummaries&steamids=${steamId}`);
         
         if (response?.response?.players?.length > 0) {
           const player = response.response.players[0];
