@@ -41,7 +41,7 @@ export function GuideViewPage() {
       const fetchAchievementSchema = async () => {
         setIsLoadingAchievements(true);
         try {
-          const response = await fetch(`/api/steam/ISteamUserStats/GetSchemaForGame/v2/?key=8C632C892CCDCFFB028138C0AE5116E8&appid=${appId}`);
+          const response = await fetch(`/api/steam?endpoint=GetSchemaForGame&appid=${appId}`);
           const data = await response.json();
           
           if (data.game?.availableGameStats?.achievements) {
