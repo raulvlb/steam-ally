@@ -4,6 +4,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
  * Steam API Client
  * Handles all HTTP requests to Steam Web API with retry logic and error handling
  * Uses Vercel serverless functions as proxy to avoid CORS issues
+ * Updated: 2026-01-30
  */
 
 // Always use our API proxy (both dev and production)
