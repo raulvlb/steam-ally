@@ -6,3 +6,4 @@
 export * from './theme.store';
 export * from './toast.store';
 export * from './user.store';
+export * from './auth.store';

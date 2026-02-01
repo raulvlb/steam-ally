@@ -1,11 +1,9 @@
 #!/bin/bash
 
 # Steam Ally - Start Script
-# This script starts the development server
+# This script starts both frontend and backend development servers
 
-set -e  # Exit on error
-
-echo "🎮 Steam Ally - Starting Development Server"
+echo "🎮 Steam Ally - Starting Development Servers"
 echo "=============================================="
 echo ""
 
@@ -16,19 +14,23 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-# Check if .env file exists
-if [ ! -f .env ]; then
-    echo -e "${RED}✗ .env file not found${NC}"
-    echo -e "${YELLOW}Run ./setup.sh first or create .env manually${NC}"
+# Check if server .env file exists
+if [ ! -f server/.env ]; then
+    echo -e "${RED}✗ server/.env file not found${NC}"
+    echo -e "${YELLOW}Run ./setup.sh first${NC}"
     exit 1
 fi
 
-# Check if Steam API Key is set
-if ! grep -q "VITE_STEAM_API_KEY=YOUR_STEAM_API_KEY_HERE" .env; then
-    echo -e "${GREEN}✓ Steam API Key appears to be configured${NC}"
-else
-    echo -e "${YELLOW}⚠ Warning: Steam API Key not configured in .env${NC}"
-    echo -e "${YELLOW}  The app will not work without a valid API key${NC}"
+# Check if DATABASE_URL is configured
+if grep -q "postgresql://username:password@localhost:5432/steam_ally" server/.env; then
+    echo -e "${RED}✗ DATABASE_URL not configured in server/.env${NC}"
+    echo -e "${YELLOW}Please update server/.env with your PostgreSQL connection string${NC}"
+    exit 1
+fi
+
+# Check if STEAM_API_KEY is configured
+if grep -q "your-steam-api-key-here" server/.env; then
+    echo -e "${YELLOW}⚠ Warning: STEAM_API_KEY not configured in server/.env${NC}"
     echo -e "${YELLOW}  Get your key at: https://steamcommunity.com/dev/apikey${NC}"
     echo ""
     read -p "Continue anyway? (y/n) " -n 1 -r
@@ -37,20 +39,45 @@ else
         exit 1
     fi
 fi
-echo ""
 
 # Check if node_modules exists
 if [ ! -d "node_modules" ]; then
-    echo -e "${YELLOW}node_modules not found. Installing dependencies...${NC}"
-    npm install
+    echo -e "${YELLOW}Frontend node_modules not found. Running setup...${NC}"
+    ./setup.sh
     echo ""
 fi
 
-# Start development server
-echo -e "${BLUE}Starting Vite development server...${NC}"
-echo -e "${GREEN}Server will be available at: http://localhost:3000${NC}"
+if [ ! -d "server/node_modules" ]; then
+    echo -e "${YELLOW}Backend node_modules not found. Installing...${NC}"
+    cd server && npm install && cd ..
+    echo ""
+fi
+
+echo -e "${GREEN}✓ Configuration verified${NC}"
 echo ""
-echo -e "${YELLOW}Press Ctrl+C to stop the server${NC}"
+
+# Start backend server in background
+echo -e "${BLUE}Starting backend server on port 3001...${NC}"
+cd server
+npm run dev &
+BACKEND_PID=$!
+cd ..
+
+# Wait for backend to start
+sleep 2
+
+# Start frontend server
+echo -e "${BLUE}Starting frontend server on port 3000...${NC}"
 echo ""
+echo -e "${GREEN}================================${NC}"
+echo -e "${GREEN}Frontend: http://localhost:3000${NC}"
+echo -e "${GREEN}Backend:  http://localhost:3001${NC}"
+echo -e "${GREEN}================================${NC}"
+echo ""
+echo -e "${YELLOW}Press Ctrl+C to stop both servers${NC}"
+echo ""
+
+# Trap to kill backend when frontend stops
+trap "kill $BACKEND_PID 2>/dev/null" EXIT
 
 npm run dev

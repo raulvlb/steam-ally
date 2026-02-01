@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Moon, Sun, Home, Gamepad2, User, LogOut, BookOpen } from 'lucide-react';
+import { Moon, Sun, Gamepad2, User, LogOut, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useThemeStore, useUserStore } from '@/store';
+import { useThemeStore, useUserStore, useAuthStore } from '@/store';
+import { SteamLoginButton } from './SteamLoginButton';
 
 /**
  * Navbar Component
@@ -11,12 +12,21 @@ import { useThemeStore, useUserStore } from '@/store';
 export function Navbar() {
   const { t } = useTranslation();
   const { isDarkMode, toggleTheme } = useThemeStore();
-  const { profile, logout, isAuthenticated } = useUserStore();
+  const { profile, logout: legacyLogout, isAuthenticated: legacyIsAuthenticated } = useUserStore();
+  const { user: authUser, isAuthenticated: apiAuthenticated, logout: apiLogout } = useAuthStore();
   const navigate = useNavigate();
-  const authenticated = isAuthenticated();
+  
+  // Support both legacy auth (SteamID input) and new API auth (Steam OpenID)
+  const authenticated = legacyIsAuthenticated() || apiAuthenticated;
+  const displayProfile = profile || (authUser ? {
+    personaname: authUser.username,
+    avatar: authUser.avatar || '',
+    steamid: authUser.steamId,
+  } : null);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    legacyLogout();
+    await apiLogout();
     navigate('/');
   };
 
@@ -35,34 +45,19 @@ export function Navbar() {
 
           {/* Navigation Links & User Info */}
           <div className="flex items-center space-x-6">
+            {/* Community Guides - Always visible */}
+            <Link
+              to="/community-guides"
+              className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-steam-accent dark:hover:text-steam-accent transition-colors"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span className="hidden sm:inline">Guias</span>
+            </Link>
+
             {authenticated && (
               <>
                 <Link
-                  to="/"
-                  className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-steam-accent dark:hover:text-steam-accent transition-colors"
-                >
-                  <Home className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t('nav.home')}</span>
-                </Link>
-
-                <Link
-                  to="/games"
-                  className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-steam-accent dark:hover:text-steam-accent transition-colors"
-                >
-                  <Gamepad2 className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t('nav.games')}</span>
-                </Link>
-
-                <Link
-                  to="/guides"
-                  className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-steam-accent dark:hover:text-steam-accent transition-colors"
-                >
-                  <BookOpen className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t('nav.guides')}</span>
-                </Link>
-
-                <Link
-                  to={`/profile/${profile?.steamid}`}
+                  to={`/profile/${displayProfile?.steamid}`}
                   className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-steam-accent dark:hover:text-steam-accent transition-colors"
                 >
                   <User className="w-5 h-5" />
@@ -70,15 +65,15 @@ export function Navbar() {
                 </Link>
 
                 {/* User Info */}
-                {profile && (
+                {displayProfile && (
                   <div className="flex items-center space-x-3 pl-4 border-l border-gray-300 dark:border-steam-dark">
                     <img
-                      src={profile.avatar}
-                      alt={profile.personaname}
+                      src={displayProfile.avatar}
+                      alt={displayProfile.personaname}
                       className="w-8 h-8 rounded-full border-2 border-steam-accent"
                     />
                     <span className="hidden md:inline text-sm font-medium text-gray-900 dark:text-white">
-                      {profile.personaname}
+                      {displayProfile.personaname}
                     </span>
                   </div>
                 )}
@@ -93,6 +88,11 @@ export function Navbar() {
                   <LogOut className="w-5 h-5" />
                 </button>
               </>
+            )}
+
+            {/* Steam Login Button (when not authenticated) */}
+            {!authenticated && (
+              <SteamLoginButton size="sm" />
             )}
 
             {/* Theme Toggle */}

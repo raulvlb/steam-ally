@@ -12,3 +12,6 @@ export * from './AchievementsPage';
 export * from './GuideEditorPage';
 export * from './GuideViewPage';
 export * from './GuidesLibraryPage';
+export * from './CommunityGuidesPage';
+export * from './CommunityGuideDetailPage';
+export * from './CreateEditGuidePage';

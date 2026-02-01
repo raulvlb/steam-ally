@@ -1,317 +1,301 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Search, Loader2, HelpCircle, CheckCircle, XCircle } from 'lucide-react';
-import { extractSteamId } from '@/utils';
-import { steamService } from '@/services/steam.service';
-import { steamApiClient } from '@/api/steam';
-import { useUserStore, useToast } from '@/store';
-import { useDebounce } from '@/hooks';
+import { 
+  Trophy, 
+  BookOpen, 
+  Users, 
+  Heart, 
+  Bookmark, 
+  Search,
+  Gamepad2,
+  Target,
+  Star,
+  ArrowRight,
+  CheckCircle
+} from 'lucide-react';
+import { useAuthStore } from '@/store/auth.store';
+import { SteamLoginButton } from '@/components';
 
 /**
  * Home Page
- * Landing page with Steam ID authentication with real-time validation
+ * Landing page with information about the site and its features
  */
 
 export function HomePage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [searchInput, setSearchInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isValidating, setIsValidating] = useState(false);
-  const [validationResult, setValidationResult] = useState<{
-    valid: boolean;
-    player?: {
-      steamId: string;
-      personaName: string;
-      avatar: string;
-      profileUrl: string;
-    };
-  } | null>(null);
-  const { setSteamId, setProfile } = useUserStore();
-  const toast = useToast();
-  const debouncedSearch = useDebounce(searchInput, 800);
+  const { isAuthenticated, user } = useAuthStore();
 
-  // Validate Steam identifier as user types
-  useState(() => {
-    const validateInput = async () => {
-      if (!debouncedSearch.trim() || debouncedSearch.length < 2) {
-        setValidationResult(null);
-        return;
-      }
+  const features = [
+    {
+      icon: Trophy,
+      title: 'Conquistas Steam',
+      description: 'Acompanhe seu progresso em conquistas de todos os seus jogos Steam. Veja estatísticas detalhadas e conquistas raras.',
+      color: 'text-yellow-500',
+      bgColor: 'bg-yellow-500/10',
+    },
+    {
+      icon: BookOpen,
+      title: 'Guias da Comunidade',
+      description: 'Crie e compartilhe guias de conquistas com a comunidade. Ajude outros jogadores a conquistar 100% nos jogos.',
+      color: 'text-steam-accent',
+      bgColor: 'bg-steam-accent/10',
+    },
+    {
+      icon: Heart,
+      title: 'Curtir e Salvar',
+      description: 'Curta os melhores guias e salve para acessar depois. Encontre facilmente os guias mais úteis da comunidade.',
+      color: 'text-red-500',
+      bgColor: 'bg-red-500/10',
+    },
+    {
+      icon: Target,
+      title: 'Progresso Detalhado',
+      description: 'Visualize seu progresso por jogo com barras de conclusão, conquistas faltantes e tempo para completar.',
+      color: 'text-green-500',
+      bgColor: 'bg-green-500/10',
+    },
+  ];
 
-      setIsValidating(true);
-      try {
-        // Extract Steam ID from URL if it's a URL
-        const extracted = extractSteamId(debouncedSearch);
-        const identifier = extracted || debouncedSearch.trim();
-        
-        // Try to resolve and validate
-        const result = await steamApiClient.resolveAndValidateUser(identifier);
-        
-        if (result.success && result.player) {
-          setValidationResult({
-            valid: true,
-            player: result.player,
-          });
-        } else {
-          setValidationResult({
-            valid: false,
-          });
-        }
-      } catch (error) {
-        setValidationResult({
-          valid: false,
-        });
-      } finally {
-        setIsValidating(false);
-      }
-    };
-
-    validateInput();
-  });
-
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!searchInput.trim()) return;
-
-    // If we already validated and found a user, use that
-    if (validationResult?.valid && validationResult.player) {
-      setIsLoading(true);
-      try {
-        // Fetch full profile
-        const profile = await steamService.getUserProfile(validationResult.player.steamId);
-        
-        if (!profile) {
-          toast.error('Could not load profile. Please try again.');
-          return;
-        }
-
-        // Save to store - Convert UserProfile to SteamPlayer format
-        setSteamId(profile.steamId);
-        const steamPlayer: import('@/types').SteamPlayer = {
-          steamid: profile.steamId,
-          communityvisibilitystate: 3,
-          profilestate: 1,
-          personaname: profile.personaName,
-          profileurl: profile.profileUrl,
-          avatar: profile.avatar,
-          avatarmedium: profile.avatar,
-          avatarfull: profile.avatarFull,
-          avatarhash: '',
-          personastate: profile.personaState,
-          realname: profile.realName,
-          timecreated: profile.timeCreated,
-          loccountrycode: profile.countryCode,
-          personastateflags: 0,
-        };
-        setProfile(steamPlayer);
-        
-        toast.success(`Welcome, ${profile.personaName}!`);
-        
-        // Redirect to profile page
-        navigate(`/profile/${profile.steamId}`);
-      } catch (error) {
-        toast.error('Failed to load Steam profile. Please try again.');
-      } finally {
-        setIsLoading(false);
-      }
-      return;
-    }
-
-    // Otherwise try to validate and load
-    setIsLoading(true);
-    try {
-      // Extract Steam ID from URL or use input directly
-      const extracted = extractSteamId(searchInput);
-      const steamId = extracted || searchInput.trim();
-      
-      // Fetch user profile to validate Steam ID
-      const profile = await steamService.getUserProfile(steamId);
-      
-      if (!profile) {
-        toast.error('Steam profile not found. Please check your input.');
-        return;
-      }
-
-      // Save to store - Convert UserProfile to SteamPlayer format
-      setSteamId(profile.steamId);
-      const steamPlayer: import('@/types').SteamPlayer = {
-        steamid: profile.steamId,
-        communityvisibilitystate: 3,
-        profilestate: 1,
-        personaname: profile.personaName,
-        profileurl: profile.profileUrl,
-        avatar: profile.avatar,
-        avatarmedium: profile.avatar,
-        avatarfull: profile.avatarFull,
-        avatarhash: '',
-        personastate: profile.personaState,
-        realname: profile.realName,
-        timecreated: profile.timeCreated,
-        loccountrycode: profile.countryCode,
-        personastateflags: 0,
-      };
-      setProfile(steamPlayer);
-      
-      toast.success(`Welcome, ${profile.personaName}!`);
-      
-      // Redirect to profile page
-      navigate(`/profile/${profile.steamId}`);
-    } catch (error) {
-      toast.error('Failed to load Steam profile. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Get validation icon
-  const getValidationIcon = () => {
-    if (isValidating) {
-      return <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />;
-    }
-    if (validationResult?.valid) {
-      return <CheckCircle className="w-5 h-5 text-green-500" />;
-    }
-    if (validationResult?.valid === false && searchInput.length >= 2) {
-      return <XCircle className="w-5 h-5 text-red-500" />;
-    }
-    return <Search className="w-5 h-5 text-gray-400" />;
-  };
+  const stats = [
+    { value: '50K+', label: 'Jogos Suportados' },
+    { value: '∞', label: 'Conquistas Disponíveis' },
+    { value: '100%', label: 'Gratuito' },
+  ];
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-br from-steam-darker via-steam-blue to-steam-dark">
-      <div className="container mx-auto px-4 py-20">
-        <div className="max-w-2xl mx-auto">
-          {/* Logo/Title */}
-          <div className="text-center mb-12">
-            <h1 className="text-6xl font-bold text-white mb-4">
-              {t('home.title')}
+    <div className="min-h-[calc(100vh-4rem)]">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-steam-darker via-steam-blue to-steam-dark overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-steam-accent rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Logo */}
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Gamepad2 className="w-16 h-16 text-steam-accent" />
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+              Steam <span className="text-steam-accent">Ally</span>
             </h1>
-            <p className="text-xl text-gray-300">
-              {t('home.subtitle')}
+            
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Seu companheiro definitivo para conquistas Steam e guias da comunidade
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    to={`/profile/${user?.steamId}`}
+                    className="flex items-center gap-2 px-8 py-4 bg-steam-accent text-white font-semibold rounded-xl hover:bg-steam-accent-dark transition-all shadow-lg shadow-steam-accent/25"
+                  >
+                    <Trophy className="w-5 h-5" />
+                    Ver Minhas Conquistas
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  <Link
+                    to="/community-guides"
+                    className="flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20"
+                  >
+                    <BookOpen className="w-5 h-5" />
+                    Explorar Guias
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <SteamLoginButton size="lg" />
+                  <Link
+                    to="/community-guides"
+                    className="flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20"
+                  >
+                    <BookOpen className="w-5 h-5" />
+                    Explorar Guias
+                  </Link>
+                </>
+              )}
+            </div>
+
+            {/* Stats */}
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-white">{stat.value}</p>
+                  <p className="text-gray-400">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50 dark:bg-steam-darker">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Tudo que você precisa para suas conquistas
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Ferramentas poderosas para acompanhar, planejar e compartilhar seu progresso em conquistas Steam
             </p>
           </div>
 
-          {/* Login Card */}
-          <div className="bg-white dark:bg-steam-dark rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-steam-darker">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                {t('home.form.title')}
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                {t('home.form.description')}
-              </p>
-            </div>
-
-            {/* Search Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="steamId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  {t('home.form.label')}
-                </label>
-                <div className="relative">
-                  <input
-                    id="steamId"
-                    type="text"
-                    value={searchInput}
-                    onChange={e => {
-                      setSearchInput(e.target.value);
-                      setValidationResult(null);
-                    }}
-                    placeholder={t('home.form.placeholder')}
-                    disabled={isLoading}
-                    className={`w-full px-4 py-3 pr-12 rounded-lg text-gray-900 dark:text-white bg-gray-50 dark:bg-steam-darker border-2 ${
-                      validationResult?.valid
-                        ? 'border-green-500 focus:border-green-500'
-                        : validationResult?.valid === false && searchInput.length >= 2
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-gray-300 dark:border-steam-darker focus:border-steam-accent'
-                    } focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors`}
-                    autoComplete="off"
-                    required
-                  />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    {getValidationIcon()}
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="p-6 bg-white dark:bg-steam-dark rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-steam-darker"
+              >
+                <div className={`w-14 h-14 ${feature.bgColor} rounded-xl flex items-center justify-center mb-4`}>
+                  <feature.icon className={`w-7 h-7 ${feature.color}`} />
                 </div>
-
-                {/* Validation feedback */}
-                {validationResult?.valid && validationResult.player && (
-                  <div className="mt-3 flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                    <img
-                      src={validationResult.player.avatar}
-                      alt={validationResult.player.personaName}
-                      className="w-10 h-10 rounded-full border-2 border-green-500"
-                    />
-                    <div className="flex-1">
-                      <p className="font-medium text-green-900 dark:text-green-100">
-                        {validationResult.player.personaName}
-                      </p>
-                      <p className="text-xs text-green-700 dark:text-green-300">
-                        {t('home.form.profileFound')}
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                {validationResult?.valid === false && searchInput.length >= 2 && !isValidating && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400">
-                    {t('home.form.profileNotFound')}
-                  </p>
-                )}
-
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  {t('home.form.exampleNote')}
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {feature.description}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <button
-                type="submit"
-                disabled={isLoading || !searchInput.trim() || (validationResult?.valid === false)}
-                className="w-full py-3 px-6 bg-steam-accent hover:bg-opacity-90 text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    {t('home.form.loadingProfile')}
-                  </>
-                ) : (
-                  <>
-                    <Search className="w-5 h-5" />
-                    {t('home.form.accessProfile')}
-                  </>
-                )}
-              </button>
-            </form>
+      {/* How It Works Section */}
+      <section className="py-20 bg-white dark:bg-steam-dark">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Como funciona
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              Comece a usar em poucos passos
+            </p>
+          </div>
 
-            {/* Help Text */}
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-steam-darker">
-              <div className="flex items-start gap-2">
-                <HelpCircle className="w-5 h-5 text-steam-accent flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                    {t('home.form.help.title')}
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  step: '1',
+                  title: 'Entre com Steam',
+                  description: 'Faça login seguro com sua conta Steam para acessar suas conquistas e jogos.',
+                  icon: Users,
+                },
+                {
+                  step: '2',
+                  title: 'Explore seus jogos',
+                  description: 'Veja todas as conquistas dos seus jogos, progresso e estatísticas detalhadas.',
+                  icon: Search,
+                },
+                {
+                  step: '3',
+                  title: 'Crie e compartilhe',
+                  description: 'Crie guias para ajudar outros jogadores ou use guias da comunidade.',
+                  icon: Star,
+                },
+              ].map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="relative inline-flex items-center justify-center w-16 h-16 bg-steam-accent text-white text-2xl font-bold rounded-full mb-4">
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {item.title}
                   </h3>
-                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                    <li>• {t('home.form.help.step1')}</li>
-                    <li>• {t('home.form.help.step2')}</li>
-                    <li>• {t('home.form.help.step3')}</li>
-                    <li>• {t('home.form.help.step4')}</li>
-                    <li>• {t('home.form.help.step5')}</li>
-                    <li>• {t('home.form.help.step6')}</li>
-                    <li>• {t('home.form.help.step7')}</li>
-                    <li>• {t('home.form.help.step8')}</li>
-                    <li>• {t('home.form.help.step9')}</li>
-                    <li>• {t('home.form.exampleNote')}: https://steamcommunity.com/profiles/<strong>76561198012345678</strong>/</li>
-                  </ul>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20 bg-gradient-to-br from-steam-accent/10 to-purple-500/10 dark:from-steam-accent/5 dark:to-purple-500/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                  Por que usar o Steam Ally?
+                </h2>
+                <ul className="space-y-4">
+                  {[
+                    'Visualização clara do progresso em conquistas',
+                    'Guias escritos pela comunidade de jogadores',
+                    'Sistema de curtidas e salvos para os melhores guias',
+                    'Filtros por jogo para encontrar guias específicos',
+                    'Totalmente gratuito e sem anúncios',
+                    'Design moderno e responsivo',
+                  ].map((benefit, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700 dark:text-gray-300">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="bg-white dark:bg-steam-dark rounded-2xl shadow-2xl p-8 border border-gray-100 dark:border-steam-darker">
+                <div className="text-center">
+                  <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    Pronto para começar?
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    Entre com sua conta Steam e comece a acompanhar suas conquistas agora mesmo.
+                  </p>
+                  {isAuthenticated ? (
+                    <Link
+                      to={`/profile/${user?.steamId}`}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-steam-accent text-white font-semibold rounded-lg hover:bg-steam-accent-dark transition-all"
+                    >
+                      Ver Meu Perfil
+                      <ArrowRight className="w-5 h-5" />
+                    </Link>
+                  ) : (
+                    <SteamLoginButton />
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Footer CTA */}
+      <section className="py-16 bg-steam-darker">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-gray-400 mb-4">
+            Feito com ❤️ para a comunidade Steam
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <Link
+              to="/community-guides"
+              className="text-steam-accent hover:underline"
+            >
+              Explorar Guias
+            </Link>
+            <span className="text-gray-600">•</span>
+            <a
+              href="https://store.steampowered.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-steam-accent hover:underline"
+            >
+              Steam Store
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

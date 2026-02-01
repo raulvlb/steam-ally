@@ -1,5 +1,17 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { HomePage, ProfilePage, GamesPage, GamesExplorePage, GameDetailPage, AchievementsPage, GuideEditorPage, GuideViewPage, GuidesLibraryPage } from '@/pages';
+import { 
+  HomePage, 
+  ProfilePage, 
+  GamesPage, 
+  GamesExplorePage, 
+  GameDetailPage, 
+  AchievementsPage, 
+  GuideEditorPage, 
+  GuideViewPage, 
+  GuidesLibraryPage,
+  CommunityGuidesPage,
+  CommunityGuideDetailPage
+} from '@/pages';
 import { ProtectedRoute } from '@/components';
 
 /**
@@ -44,19 +56,13 @@ export function AppRoutes() {
         } 
       />
       <Route path="/profile" element={<Navigate to="/" replace />} />
+      
+      {/* Legacy guides routes (local storage) */}
       <Route 
         path="/guides" 
         element={
           <ProtectedRoute>
             <GuidesLibraryPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/achievements/:steamId/:appId" 
-        element={
-          <ProtectedRoute>
-            <AchievementsPage />
           </ProtectedRoute>
         } 
       />
@@ -81,6 +87,43 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <GuideViewPage />
+          </ProtectedRoute>
+        } 
+      />
+      
+      {/* Community guides routes (API-based) */}
+      <Route path="/community-guides" element={<CommunityGuidesPage />} />
+      <Route path="/community-guide/:id" element={<CommunityGuideDetailPage />} />
+      <Route 
+        path="/guide/create" 
+        element={
+          <ProtectedRoute>
+            <GuideEditorPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/guide/create/:appId" 
+        element={
+          <ProtectedRoute>
+            <GuideEditorPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/guide/edit/:id" 
+        element={
+          <ProtectedRoute>
+            <GuideEditorPage />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/achievements/:steamId/:appId" 
+        element={
+          <ProtectedRoute>
+            <AchievementsPage />
           </ProtectedRoute>
         } 
       />

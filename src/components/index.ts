@@ -11,3 +11,5 @@ export * from './Pagination';
 export * from './Card';
 export * from './GameCard';
 export * from './ProtectedRoute';
+export * from './GuideActions';
+export * from './SteamLoginButton';
